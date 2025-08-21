@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: crud-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=8076107814@YashS
+      - MYSQL_DATABASE=cruddb
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - crud-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    container_name: crud-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/cruddb
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=8076107814@Yash
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - crud-network
+
+  frontend:
+    build: ./frontend
+    container_name: crud-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - crud-network
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  crud-network:
+    driver: bridge
