@@ -1,20 +1,13 @@
-# Stage 1: Build
-FROM node:20-alpine AS builder
-
+# Use an official Node.js runtime as a parent image
+FROM node:20-alpine as build
 WORKDIR /app
-
 COPY package*.json ./
 RUN npm install --legacy-peer-deps
-
 COPY . .
 RUN npm run build
 
-# Stage 2: Serve
+# Use an official Nginx image to serve the build
 FROM nginx:alpine
-
-COPY --from=builder /app/dist/frontend/* /usr/share/nginx/html/
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
+COPY --from=build /app/build /usr/share/nginx/html
 EXPOSE 80
-
 CMD ["nginx", "-g", "daemon off;"]
