@@ -13,6 +13,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql
+  namespace: devops-namespace
 spec:
   selector:
     matchLabels:
@@ -26,7 +27,7 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: crud-mysql
+          image: mysql
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: rootpassword

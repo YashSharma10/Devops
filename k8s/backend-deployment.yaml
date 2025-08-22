@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend-deployment
+  namespace: devops-namespace
 spec:
   replicas: 1
   selector:
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: devop-backend
+          image: devops-backend
           ports:
             - containerPort: 8080
 ---
