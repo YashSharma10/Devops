@@ -13,10 +13,10 @@ spec:
         app: frontend
     spec:
       containers:
-      - name: frontend
-        image: frontend:latest # Replace with your image name if pushed to a registry
-        ports:
-        - containerPort: 80
+        - name: frontend
+          image: devops-frontend
+          ports:
+            - containerPort: 80
 ---
 apiVersion: v1
 kind: Service

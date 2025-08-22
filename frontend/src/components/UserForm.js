@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const API_URL = 'http://localhost:8080/api/users';
+const API_URL = process.env.REACT_APP_API_URL || 'http://backend-service:8080/api/users';
 
 function UserForm({ user, onSuccess, onCancel }) {
   const [form, setForm] = useState({
