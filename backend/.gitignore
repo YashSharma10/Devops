@@ -15,3 +15,6 @@ Thumbs.db
 *.ipr
 *.iws
 .vscode/
+
+# Java class files
+*.class
