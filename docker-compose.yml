@@ -5,10 +5,10 @@ services:
     image: mysql:8.0
     container_name: crud-mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=8076107814@YashS
-      - MYSQL_DATABASE=cruddb
+      MYSQL_ROOT_PASSWORD: testpass123
+      MYSQL_DATABASE: cruddb
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     networks:
@@ -25,10 +25,10 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SPRING_PROFILES_ACTIVE=prod
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/cruddb
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=8076107814@Yash
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/cruddb
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: testpass123
     depends_on:
       mysql:
         condition: service_healthy
