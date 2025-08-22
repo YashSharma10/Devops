@@ -1,0 +1,10 @@
+# Global ignores
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+.env
+.env.*
+node_modules/
+.idea/
+.vscode/
