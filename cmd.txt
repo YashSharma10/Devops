@@ -1,9 +1,152 @@
-kubectl port-forward svc/backend-service 8080:8080 -n devops
-kubectl port-forward svc/frontend-service 3000:80 -n devops 
+╔════════════════════════════════════════════════════════════════════╗
+║                        DEVOPS COMMANDS CHEATSHEET                ║
+╚════════════════════════════════════════════════════════════════════╝
+
+─────────────────────────────
+	BACKEND (Spring Boot)
+─────────────────────────────
+# Build backend
+cd backend
+mvn clean install
+# Update dependencies
+mvn versions:display-dependency-updates
+# Run with specific profile
+mvn spring-boot:run -Dspring-boot.run.profiles=dev
+# Check Java version
+java -version
+# Run backend (dev mode)
+mvn spring-boot:run
+# Or run the built JAR
+java -jar target/crud-demo-0.0.1-SNAPSHOT.jar
+# Run tests
+mvn test
+# Clean build
+mvn clean
+cd ..
+
+─────────────────────────────
+	FRONTEND (React)
+─────────────────────────────
+# Install dependencies
+cd frontend
+npm install
+# Clean node_modules and reinstall
+rm -rf node_modules package-lock.json
+npm install
+# Check package versions
+npm outdated
+# Start dev server
+npm start
+# Build production
+npm run build
+# Run tests
+npm test
+# Lint code
+npm run lint
+#+ (Optional) Run Storybook
+# npm run storybook
+cd ..
+
+─────────────────────────────
+	DOCKER
+─────────────────────────────
+# Build backend image
+cd backend
+docker build -t backend-image .
+cd ..
+# Build frontend image
+cd frontend
+docker build -t frontend-image .
+cd ..
+# List images
+docker images
+# Remove image (example)
+docker rmi backend-image
+# Prune unused images/containers/networks
+docker system prune -f
+# View running containers
+docker ps
+# View logs for a container
+docker logs <container-id>
+# Exec into a running container
+docker exec -it <container-id> /bin/bash
+
+─────────────────────────────
+	DOCKER COMPOSE
+─────────────────────────────
+# Start all services
+docker-compose up -d
+# Start & rebuild
+docker-compose up --build -d
+# Stop all services
+docker-compose down
+# View logs
+docker-compose logs -f
+# List containers
+docker-compose ps
+# View config
+docker-compose config
+# Scale services (example: 3 backend containers)
+docker-compose up -d --scale backend=3
+
+─────────────────────────────
+	KUBERNETES
+─────────────────────────────
+# Apply all manifests
+kubectl apply -f k8s/
+# Delete all resources
+kubectl delete -f k8s/
+# Get pods in namespace
+kubectl get pods -n devops
+# Get deployments
+kubectl get deployments -n devops
+# Get all resources
 kubectl get all -n devops
-kubectl apply -f k8s/namespace.yaml; 
-kubectl apply -f k8s/mysql-deployment.yaml; 
-kubectl apply -f k8s/backend-deployment.yaml; 
-kubectl apply -f k8s/frontend-deployment.yaml
-kubectl delete deployment --all -n devops 
-docker-compose up --build  
+# Get services
+kubectl get svc -n devops
+# Describe pod (replace <pod-name>)
+kubectl describe pod <pod-name> -n devops
+# View pod logs
+kubectl logs <pod-name> -n devops
+# View events
+kubectl get events -n devops
+# Exec into pod (replace <pod-name>)
+kubectl exec -it <pod-name> -n devops -- /bin/bash
+# Edit resource (example: deployment)
+kubectl edit deployment <deployment-name> -n devops
+# Scale deployment (example: 3 replicas)
+kubectl scale deployment <deployment-name> --replicas=3 -n devops
+# Port forward (backend example)
+kubectl port-forward svc/backend-service 8080:8080 -n devops
+# Port forward (frontend example)
+kubectl port-forward svc/frontend-service 3000:3000 -n devops
+
+─────────────────────────────
+	TROUBLESHOOTING & LOGS
+─────────────────────────────
+# Tail backend logs (Spring Boot)
+tail -f backend/target/spring.log
+# Tail frontend logs (if any)
+tail -f frontend/build.log
+# Docker Compose logs
+docker-compose logs -f
+# Kubernetes pod logs
+kubectl logs <pod-name> -n devops
+# Check system resources (Linux)
+htop
+# Check network (Linux)
+netstat -tulnp
+
+─────────────────────────────
+	TIPS
+─────────────────────────────
+# Use PowerShell or Git Bash for best experience on Windows
+# Replace <pod-name> with actual pod name from 'kubectl get pods -n devops'
+# Use 'Ctrl+C' to stop port-forwarding or logs
+# Use 'cd ..' to return to project root after commands
+# For MySQL, check k8s/mysql-deployment.yaml for credentials
+# For more kubectl tips: https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+
+╔════════════════════════════════════════════════════════════════════╗
+║        END OF CHEATSHEET - HAPPY CODING!                         ║
+╚════════════════════════════════════════════════════════════════════╝
