@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend-deployment
-  namespace: devops-namespace
+  namespace: devops
 spec:
   replicas: 1
   selector:
@@ -16,6 +16,7 @@ spec:
       containers:
         - name: frontend
           image: devops-frontend
+          imagePullPolicy: Never
           ports:
             - containerPort: 80
 ---
@@ -23,6 +24,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: frontend-service
+  namespace: devops
 spec:
   selector:
     app: frontend

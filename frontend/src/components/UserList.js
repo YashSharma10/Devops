@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://backend-service:8080/api/users'; // Use backend-service for Kubernetes
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api/users'; // Use localhost for local development
 
 function UserList({ onEdit }) {
   const [users, setUsers] = useState([]);

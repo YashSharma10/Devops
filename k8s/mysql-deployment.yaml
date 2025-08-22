@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mysql
+  namespace: devops
 spec:
   selector:
     app: mysql
@@ -13,7 +14,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql
-  namespace: devops-namespace
+  namespace: devops
 spec:
   selector:
     matchLabels:
@@ -27,10 +28,10 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: mysql
+          image: mysql:8.0
           env:
             - name: MYSQL_ROOT_PASSWORD
-              value: rootpassword
+              value: 8076107814@Yash
             - name: MYSQL_DATABASE
               value: cruddemo
           ports:
