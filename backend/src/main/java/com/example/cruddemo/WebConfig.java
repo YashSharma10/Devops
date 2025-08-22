@@ -13,8 +13,8 @@ public class WebConfig {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(@NonNull CorsRegistry registry) {
-		registry.addMapping("/**")
-			.allowedOriginPatterns("*")
+				registry.addMapping("/**")
+						.allowedOriginPatterns("*")
 						.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
 						.allowedHeaders("*")
 						.allowCredentials(false)
