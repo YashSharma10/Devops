@@ -1,0 +1,9 @@
+kubectl port-forward svc/backend-service 8080:8080 -n devops
+kubectl port-forward svc/frontend-service 3000:80 -n devops 
+kubectl get all -n devops
+kubectl apply -f k8s/namespace.yaml; 
+kubectl apply -f k8s/mysql-deployment.yaml; 
+kubectl apply -f k8s/backend-deployment.yaml; 
+kubectl apply -f k8s/frontend-deployment.yaml
+kubectl delete deployment --all -n devops 
+docker-compose up --build  
